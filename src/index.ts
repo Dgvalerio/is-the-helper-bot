@@ -1,17 +1,18 @@
-// Require the necessary discord.js classes
 import { Client, Events, GatewayIntentBits } from 'discord.js';
+
 import 'dotenv/config';
 
-const { CLIENT_TOKEN, CLIENT_ID, GUILD_ID } = process.env;
+const { CLIENT_TOKEN } = process.env;
 
-// Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-// When the client is ready, run this code (only once)
-// We use 'c' for the event parameter to keep it separate from the already defined 'client'
-client.once(Events.ClientReady, (c) => {
-  console.log(`Ready! Logged in as ${c.user.tag}`);
-});
+client.once(Events.ClientReady, (c) =>
+  console.log(`Ready! Logged in as ${c.user.tag}`)
+);
 
-// Log in to Discord with your client's token
 client.login(CLIENT_TOKEN);
+
+client.on(Events.InteractionCreate, async (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+  console.log(interaction);
+});
