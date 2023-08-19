@@ -1,4 +1,8 @@
-import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
+import {
+  CommandInteraction,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from 'discord.js';
 
 import { Command } from './index';
 
@@ -87,27 +91,28 @@ const data = new SlashCommandBuilder()
   .setName('get-daily')
   .setDescription('Informa todas as descrições da daily de hoje');
 
+const thumbnail =
+  'https://lh3.googleusercontent.com/u/0/drive-viewer/AITFw-w6bg-lgZYydLGlwMCd6WJivJxKq4Pfzv3FSJ3wNe3iZODLZuq67nhBKoNueUQtj1hWMIwOBYGa6zIPEtWlhLjCkmkwKw=w1278-h615';
+
 const execute = async (interaction: CommandInteraction): Promise<void> => {
-  const notes = dailys
-    .map(
-      (day) =>
-        day.user +
-        ': [\n' +
-        day.notes
-          .map(
-            (note, i, { length }) => `> ${note}${i === length - 1 ? '.' : ';'}`
-          )
-          .join('\n') +
-        '\n];\n'
+  const exampleEmbed = new EmbedBuilder()
+    .setColor('#0e2443')
+    .setTitle(`Daily de ${date}`)
+    .setDescription('Projeto “International School”')
+    .setThumbnail(thumbnail)
+    .addFields(
+      ...dailys.map((day) => ({
+        name: `${day.user}: `,
+        value: day.notes.map((note) => `> ${note}`).join('\n'),
+      }))
     )
-    .join('');
+    .setTimestamp()
+    .setFooter({
+      text: `Solicitado por ${interaction.user}`,
+      iconURL: interaction.user.displayAvatarURL(),
+    });
 
-  await interaction.reply(`
-## Daily de ${date}
-### Projeto “International School”
-
-${notes}
-`);
+  await interaction.reply({ embeds: [exampleEmbed] });
 };
 
 export const getDaily: Command = { data, execute };
