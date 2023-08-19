@@ -28,14 +28,13 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
+.env
 
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 # yarn
 .pnp.*
@@ -46,3 +45,5 @@ next-env.d.ts
 !.yarn/sdks
 !.yarn/versions
 
+# configs
+config.json
