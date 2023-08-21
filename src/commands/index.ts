@@ -1,7 +1,7 @@
 import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
 
-import { addDaily } from './add-daily';
-import { getDaily } from './get-daily';
+import { addDaily } from './daily/add-daily';
+import { getDaily } from './daily/get-daily';
 
 export interface Command {
   data:

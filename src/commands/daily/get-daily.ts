@@ -5,9 +5,9 @@ import {
   SlashCommandBuilder,
 } from 'discord.js';
 
-import { daily } from '../firebase/daily';
-import { formatDate } from '../utils/date';
-import { Command } from './index';
+import { daily } from '../../firebase/daily';
+import { formatDate } from '../../utils/date';
+import { Command } from '../index';
 
 const data = new SlashCommandBuilder()
   .setName('get-daily')
